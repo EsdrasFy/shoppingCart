@@ -1,0 +1,27 @@
+.products{
+    padding: 0px 20px 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 20px   ;
+    
+}
+
+main{
+    height: 100vw;
+
+}
+@media (max-width: 480px){
+
+    .products{
+        grid-template-columns: repeat(auto-fill, minmax(135px,1fr));
+    }
+}
+@media (max-width: 330px){
+    .products{
+        display: block;
+        justify-content: center;
+    }
+    
+}
+
+

@@ -1,0 +1,129 @@
+.product-card {
+    width: 100%;
+    max-width: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    transition: 0.3s;
+  }
+  .product-card > div{
+    width: 100%;
+    max-width: 300px;
+    background-color: white;
+    /* background-color: #bbb; */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    transition: 0.3s;
+  }
+  
+  .card__image {
+    width: 100px;
+  }
+  .card__infos {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+  }
+  .old__price{
+    text-decoration: line-through;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .card__price {
+    font-size: 25px;
+    font-weight: 400;
+    display: block;
+    color: #00a650;
+  }
+  
+  .card__title {
+    font-size: 15px;
+    color: #737373;
+    line-height: 1.5;
+    font-weight: 500;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  
+  .button__add-cart {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    margin: 12px 15px;
+    color: #0c5dd6;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card:hover .button__add-cart {
+    display: flex;
+  }
+  @media (max-width: 390px){
+    .button__add-cart{
+      display: flex;
+    }
+    .card__price{
+      font-size: 25px;
+      margin-top: 8px;
+      margin-bottom: -5px;
+    }
+    .card__title {
+      font-size: 13px;
+    }
+    .card__infos {
+      padding: 0px 10px;
+      border-top: 1px solid #ddd;
+    }
+    .product-card{
+      max-width: 150px;
+    }
+    
+  }
+  @media (max-width: 330px){
+    .product-card{
+      max-width: 140px;
+      display: flex;
+      flex-direction: row;
+      margin-left: 75px;
+      margin-right: 0;
+      margin-bottom: 10px;
+      justify-content: center;
+      min-height: 150px;
+
+    }
+    .product-card > img{
+      max-width: 130px;
+    }
+    .card__infos {
+      background-color: #FFF;
+      min-width: 110px;
+      padding-right: 70px;
+    }
+    .button__add-cart{
+      top: 90px;
+      left: 160px;
+    }
+  }

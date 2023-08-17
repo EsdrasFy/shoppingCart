@@ -1,3 +1,3 @@
-# https://www.robotstxt.org/robotstxt.html
+npm start# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:

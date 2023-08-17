@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header/Header';
+import Products from './components/Products/Products';
+import InfoProduct from './components/InfoProduct/InfoProduct';
+import Cart from './components/Cart/Cart';
+import PopopCondition from './components/PopopCondition/PopopCondition';
+import { useContext } from 'react';
+import { AllContexts } from './contexts/AllContexts/AllContexts';
 
 function App() {
+  const {popop} =useContext(AllContexts)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Products />} />
+        <Route path="/produto/:id" element={<InfoProduct/>} />
+      </Routes>
+      <Cart/>
+      {popop && <PopopCondition/>}
+      
+    </>
   );
 }
 
