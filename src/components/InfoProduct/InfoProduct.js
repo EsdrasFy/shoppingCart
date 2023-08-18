@@ -13,7 +13,6 @@ function InfoProduct() {
     fetchInfo(id).then((response) => {
       setInfoProduct(response);
       setLoading(false);
-      console.log(response)
     });
   }, [id]);
   const getThumbnailUrl = () => {

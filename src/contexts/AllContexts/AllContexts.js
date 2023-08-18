@@ -1,10 +1,11 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 const AllContexts = createContext();
 
 const AllProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState();
   const [cartItems, setCartItems] = useState([]);
+  const [arrayCartLocal, setArrayCartLocal] = useState([]);
   const [totalQuant, setTotalQuant] = useState();
   const [minValue, setMinValue] = useState();
   const [maxValue, setMaxValue] = useState();
@@ -16,6 +17,42 @@ const AllProvider = ({ children }) => {
     minValue: '',
     maxValue: '',
   });
+  const addItemToCart = (data) => {
+    const existingProduct = cartItems.find((item) => item.id === data.id);
+
+    if (existingProduct) {
+      const updatedCart = cartItems.map((item) =>
+        item.id === data.id ? { ...item, quantity: item.quantity + 1 } : item,
+      );
+
+      if (existingProduct) {
+        localStorage.setItem('minhaArraySalva', JSON.stringify(updatedCart));
+        setCartItems(updatedCart);
+      } else {
+        const newCartItem = { ...data, quantity: 1 };
+        setCartItems([...cartItems, newCartItem]);
+        localStorage.setItem(
+          'minhaArraySalva',
+          JSON.stringify([...cartItems, newCartItem]),
+        );
+      }
+    } else {
+      const newCartItem = { ...data, quantity: 1 };
+      setCartItems([...cartItems, newCartItem]);
+      localStorage.setItem(
+        'minhaArraySalva',
+        JSON.stringify([...cartItems, newCartItem]),
+      );
+    }
+  };
+  useEffect(() => {
+    const getArray = JSON.parse(localStorage.getItem('minhaArraySalva'));
+    if (getArray) {
+      setCartItems(getArray);
+    } else {
+      localStorage.setItem('minhaArraySalva', JSON.stringify(cartItems));
+    }
+  }, []);
   return (
     <AllContexts.Provider
       value={{
@@ -39,6 +76,9 @@ const AllProvider = ({ children }) => {
         setFilteredProducts,
         popop,
         setPopop,
+        arrayCartLocal,
+        setArrayCartLocal,
+        addItemToCart,
       }}
     >
       {children}

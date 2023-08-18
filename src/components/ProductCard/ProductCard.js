@@ -1,18 +1,21 @@
-import formatCurrency from '../../utils/formatCurrency';
+import React, { useContext, useState } from 'react';
 import './ProductCard.css';
 import { useNavigate } from 'react-router-dom';
 import { FaCartPlus, FaRegHeart, FaHeart } from 'react-icons/fa';
-import { useContext } from 'react';
 import { AllContexts } from '../../contexts/AllContexts/AllContexts';
-import { useState } from 'react';
+import formatCurrency from '../../utils/formatCurrency';
+
 function ProductCard({ data }) {
-  const [heartFill, setHeartFill ] = useState(true)
- 
   const { thumbnail, title, price, id } = data;
   const navigate = useNavigate();
-  const { cartItems, setCartItems } = useContext(AllContexts);
+  const { addItemToCart } = useContext(AllContexts);
+  const [heartFill, setHeartFill] = useState(true);
+  const handleAddItem = (data) => {
+    addItemToCart(data);
+  };
   const showProduct = () => {
     navigate(`/produto/${id}`);
+    setHeartFill(false);
   };
   const calculateOldPrice = (currentPrice) => {
     const discountPercentage = 10;
@@ -20,18 +23,8 @@ function ProductCard({ data }) {
     const result = currentPrice + discountAmount;
     return parseFloat(result.toFixed(2));
   };
-  const handleAddCart = (data) => {
-    setHeartFill(false)
-    const existingProduct = cartItems.find((item) => item.id === data.id);
-    if (existingProduct) {
-      const updatedCart = cartItems.map((item) =>
-        item.id === data.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      setCartItems(updatedCart);
-    } else {
-      setCartItems([...cartItems, { ...data, quantity: 1 }]);
-    }
-  };
+;
+
   return (
     <section className="product-card">
       <div onClick={showProduct}>
@@ -49,9 +42,9 @@ function ProductCard({ data }) {
       <button
         type="button"
         className="button__add-cart"
-        onClick={() => handleAddCart(data)}
-      >{heartFill ? <FaRegHeart /> : <FaHeart />}
-        
+        onClick={() => handleAddItem(data)}
+      >
+        {heartFill ? <FaRegHeart /> : <FaHeart />}
       </button>
     </section>
   );

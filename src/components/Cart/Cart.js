@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Cart.css';
 import CartItem from '../CartItem/CartItem';
 import { AllContexts } from '../../contexts/AllContexts/AllContexts';
 import formatCurrency from '../../utils/formatCurrency';
-import { useEffect } from 'react';
-function Cart() {
-  const { cartItems, isCartVisible, setTotalQuant, totalQuant } = useContext(AllContexts);
 
+function Cart() {
+  const { cartItems, isCartVisible, setTotalQuant, setCartItems} = useContext(AllContexts);
   const cartSummary = cartItems.reduce((summary, item) => {
     if (!summary[item.id]) {
       summary[item.id] = {
@@ -18,19 +17,21 @@ function Cart() {
     }
     return summary;
   }, {});
-
-  const { totalPrice, totalQuantity} = Object.values(cartSummary).reduce(
+  
+  const { totalPrice, totalQuantity } = Object.values(cartSummary).reduce(
     (acc, item) => {
       return {
         totalPrice: item.price * item.quantity + acc.totalPrice,
         totalQuantity: item.quantity + acc.totalQuantity,
       };
     },
-    { totalPrice: 0, totalQuantity: 0 },
+    { totalPrice: 0, totalQuantity: 0 }
   );
+
   useEffect(() => {
     setTotalQuant(totalQuantity);
-  },);
+  }, [totalQuantity]);
+
   return (
     <section className={`cart ${isCartVisible ? 'cart--active' : ''}`}>
       <div className="cart-items">

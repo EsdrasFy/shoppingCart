@@ -7,10 +7,14 @@ import { AllContexts } from '../../contexts/AllContexts/AllContexts';
 function CartItem({ data }) {
   const { id, thumbnail, price, title } = data;
   const {cartItems , setCartItems} = useContext(AllContexts)
-  const handleRemoveItem = (id) =>{
-    const updateItems = cartItems.filter((item) => item.id !== id)
-    setCartItems(updateItems)
-  }
+  const handleRemoveItem = (id) => {
+    const updatedItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedItems);
+    
+    const storedData = JSON.parse(localStorage.getItem('minhaArraySalva')) || [];
+    const updatedData = storedData.filter((item) => item.id !== id);
+    localStorage.setItem('minhaArraySalva', JSON.stringify(updatedData));
+  };
   const cartItem = cartItems.find((item) => item.id === id);
   return (
     <div className="cart-item">
